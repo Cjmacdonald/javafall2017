@@ -37,22 +37,12 @@ public class Javafall2017Test {
     public void tearDown() {
     }
 
-@Test
-    public void TestingCreateNewDatabase() {
-        Javafall2017 app = new Javafall2017();
-        app.createNewDatabase();
-    }
-    
     @Test
-    public void TestingCreateNewTable() {
-        Javafall2017 app = new Javafall2017();
-        app.createNewTable();
+    public void TestSun()
+    {
+        Javafall2017  app = new Javafall2017();
+        assertEquals(true,app.checkifbright(6));
+        assertEquals(false,app.checkifbright(4));
     }
-    
-    @Test
-    public void TestingInsert() {
-        Javafall2017 app = new Javafall2017();
-        app.insert("Dr. Seuss", 5);
-        app.PrintTable();
-    }
+
 }

@@ -22,90 +22,47 @@ public class Javafall2017 {
         app.run();
     }
      
-    private Connection conn = null;
-     
-    public Connection getConnection(){
-        String url = 
-"jdbc:sqlite: C:\Users\camma\Documents\NetBeansProjects\javafall2017.db";
-        try{
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e){
-            Logger.getLogger(Javafall2017.class.getName()).log(Level.SEVERE, 
-null, e);
-        }
-        return conn;
-    }
-      
-    public void createNewDatabase(){
-        try (Connection conn = getConnection()){
-            if (conn != null){
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("Connection has been established.");
-                System.out.println("The driver name is " + 
-meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
-        } catch (SQLException e){
-            Logger.getLogger(Javafall2017.class.getName()).log(Level.SEVERE, 
-null, e);
-        }
-    }
-     
-      public void createNewTable() 
-      {
-        String sql = "CREATE TABLE IF NOT EXISTS library(\n"
-                + "bookName string NOT NULL,\n"
-                + "pages int"
-	                + ");";
-        
-        try (Connection conn = getConnection()) {
-            Statement statement = conn.createStatement();
-            statement.execute(sql);
-            System.out.println("Table was created successfully.");
-        } catch (SQLException e){
-            Logger.getLogger(Javafall2017.class.getName()).log(Level.SEVERE, 
-null, e);
-        }
-    }
-      
-      public void insert(String _bookName, int _pages) 
-      {
-        String sql = "INSERT INTO library(bookName,pages) VALUES(?,?)";
- 
-        try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) 
-                {
-                    pstmt.setString(1, _bookName);
-                    pstmt.setInt(2, _pages);
-                    pstmt.executeUpdate();
-                } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-      
-      public void PrintTable(){
-        String sql = "SELECT bookName, pages FROM library";
-        try (Connection conn = getConnection()){
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            
-            while (resultSet.next()){
-                System.out.println(resultSet.getString("bookName") + "\t"
-                        + resultSet.getInt("pages"));
-            }
-        } catch (SQLException e){
-            Logger.getLogger(Javafall2017.class.getName()).log(Level.SEVERE, 
-null, e);
-        }
-    }
-      
+    
       public void run()
       {
-        createNewDatabase();
-        createNewTable();
-        insert("Hatchet", 111);
-        insert("Moby Dick", 234);
-        insert("To Kill a Mocking Bird", 123);
-        PrintTable();
+        boolean isBright = false;
+        
+        isBright = checkifbright(6);
+        Printem(isBright);
+         isBright = checkifbright(4);
+        Printem(isBright);
+         isBright = checkifbright(10);
+        Printem(isBright);
+         isBright = checkifbright(2);
+        Printem(isBright);
+       
+        
       }
+      
+      public boolean checkifbright(int brightness)
+      {
+          if(brightness > 5)
+          {
+          
+              return true;
+          }
+          else
+          {
+           
+              return false;
+          }
+          
+      }
+      public void Printem(boolean temp)
+      {
+           if(temp == true)
+        {
+                System.out.println("Damn that bright! ");
+        }
+        else 
+        {
+                System.out.println("I cant see! "); 
+        }
+      }
+      
 }
